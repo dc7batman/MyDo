@@ -42,7 +42,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="mPj-X4-hpu"/>
+                    <navigationItem key="navigationItem" id="mPj-X4-hpu">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="fF4-e8-xxI">
+                            <connections>
+                                <action selector="addNewItem:" destination="BYZ-38-t0r" id="UUa-4L-Emr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="T5v-Nl-9Il" id="Z6j-YM-knN"/>
                     </connections>

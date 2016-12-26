@@ -22,6 +22,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
     
+    // Add new item
+    @IBAction func addNewItem(_ sender: Any) {
+        let alertController = UIAlertController.init(title: "Add", message: "Add new item", preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+            
+        }
+        let addAction = UIAlertAction(title: "Add", style: .default) { (_) in
+            let itemName = alertController.textFields!.first?.text
+            self.addNewItemWithName(name: itemName!)
+        }
+        alertController.addAction(addAction)
+        present(alertController,animated: true)
+    }
+    
+    func addNewItemWithName(name: String) -> Void {
+        print(name)
+    }
+    
+    // TableView datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
@@ -34,6 +53,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCellId", for: indexPath)
         cell.textLabel?.text = "Title"
         return cell
+    }
+    
+    
+    // Tableview Delegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }
 
