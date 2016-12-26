@@ -43,6 +43,11 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="mPj-X4-hpu">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="reply" id="2fW-aN-wbt">
+                            <connections>
+                                <action selector="sendFeedback:" destination="BYZ-38-t0r" id="mut-ij-xfX"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="fF4-e8-xxI">
                             <connections>
                                 <action selector="addNewItem:" destination="BYZ-38-t0r" id="UUa-4L-Emr"/>

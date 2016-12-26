@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -38,6 +39,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func addNewItemWithName(name: String) -> Void {
         print(name)
+    }
+    
+    // Send feedback mail
+    @IBAction func sendFeedback(_ sender: Any) {
+        let mailComposerVc = configureMailComposerViewController()
+        
+        if MFMailComposeViewController.canSendMail() {
+            self.present(mailComposerVc, animated: true)
+        }
+    }
+    
+    func configureMailComposerViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        
+        mailComposerVC.mailComposeDelegate = self
+        mailComposerVC.setToRecipients(["support@idodaily.in"])
+        mailComposerVC.setMessageBody("Feedback", isHTML: false)
+        
+        return mailComposerVC
     }
     
     // TableView datasource
