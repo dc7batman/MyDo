@@ -66,12 +66,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50.0
+        return 70.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "listCellId", for: indexPath)
-        cell.textLabel?.text = "Title"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "listCellId", for: indexPath) as! ItemsListTableViewCell
+        cell.itemNameLabel?.text = "Title"
+        if indexPath.row % 2 == 0 {
+            cell.contentView.backgroundColor = UIColor.red
+        } else {
+            cell.contentView.backgroundColor = UIColor.blue
+        }
         return cell
     }
     

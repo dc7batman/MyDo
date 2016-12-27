@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0132925C1E12D8DC00F758D7 /* ItemsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0132925B1E12D8DC00F758D7 /* ItemsListTableViewCell.swift */; };
 		018616681E0EFC0A00D9950A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018616671E0EFC0A00D9950A /* AppDelegate.swift */; };
 		0186166A1E0EFC0A00D9950A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018616691E0EFC0A00D9950A /* ViewController.swift */; };
 		0186166D1E0EFC0A00D9950A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0186166B1E0EFC0A00D9950A /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0132925B1E12D8DC00F758D7 /* ItemsListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsListTableViewCell.swift; sourceTree = "<group>"; };
 		018616641E0EFC0A00D9950A /* MyDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		018616671E0EFC0A00D9950A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		018616691E0EFC0A00D9950A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			children = (
 				018616671E0EFC0A00D9950A /* AppDelegate.swift */,
 				018616691E0EFC0A00D9950A /* ViewController.swift */,
+				0132925B1E12D8DC00F758D7 /* ItemsListTableViewCell.swift */,
 				0186166B1E0EFC0A00D9950A /* Main.storyboard */,
 				0186166E1E0EFC0A00D9950A /* Assets.xcassets */,
 				018616701E0EFC0A00D9950A /* LaunchScreen.storyboard */,
@@ -287,6 +290,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0132925C1E12D8DC00F758D7 /* ItemsListTableViewCell.swift in Sources */,
 				0186166A1E0EFC0A00D9950A /* ViewController.swift in Sources */,
 				018616681E0EFC0A00D9950A /* AppDelegate.swift in Sources */,
 			);
