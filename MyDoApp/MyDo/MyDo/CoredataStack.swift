@@ -14,12 +14,33 @@ class CoredataStack: NSObject {
     var managedObjectModel : NSManagedObjectModel?
     var storeCoordinator : NSPersistentStoreCoordinator?
     var store : NSPersistentStore?
+    var mainMoc : NSManagedObjectContext?
+    var rootMoc : NSManagedObjectContext?
+    var backgroundMoc : NSManagedObjectContext?
+    
     
     override init() {
         super.init()
         setupManagedObjectModel()
         setupStoreCoordinator()
         setupStore()
+        setupRootContext()
+        setupMainContext()
+        setupBackgroundContext()
+    }
+    
+    func databaseFilePath() -> NSURL? {
+        
+        let libraryUrl = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first
+        let fileUrl = libraryUrl?.appendingPathComponent("AppLibrary")
+        if !FileManager.default.fileExists(atPath: (fileUrl?.path)!) {
+            do {
+                try FileManager.default.createDirectory(at: fileUrl!, withIntermediateDirectories: false, attributes: nil)
+            } catch {
+                assert(false, "Creating database directory failed")
+            }
+        }
+        return fileUrl?.appendingPathComponent("itemsdatbase.sqlite") as NSURL?
     }
     
     func setupManagedObjectModel() {
@@ -45,17 +66,19 @@ class CoredataStack: NSObject {
         }
     }
     
-    func databaseFilePath() -> NSURL? {
-        
-        let libraryUrl = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first
-        let fileUrl = libraryUrl?.appendingPathComponent("AppLibrary")
-        if !FileManager.default.fileExists(atPath: (fileUrl?.path)!) {
-            do {
-                try FileManager.default.createDirectory(at: fileUrl!, withIntermediateDirectories: false, attributes: nil)
-            } catch {
-                assert(false, "Creating database directory failed")
-            }
-        }
-        return fileUrl?.appendingPathComponent("itemsdatbase.sqlite") as NSURL?
+    func setupRootContext() {
+        rootMoc = NSManagedObjectContext.init(concurrencyType: .privateQueueConcurrencyType)
+        rootMoc?.persistentStoreCoordinator = storeCoordinator
+        rootMoc?.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+    }
+    
+    func setupMainContext() {
+        mainMoc = NSManagedObjectContext.init(concurrencyType: .mainQueueConcurrencyType)
+        mainMoc?.parent = rootMoc
+    }
+    
+    func setupBackgroundContext() {
+        backgroundMoc = NSManagedObjectContext.init(concurrencyType: .privateQueueConcurrencyType)
+        backgroundMoc?.parent = mainMoc
     }
 }
