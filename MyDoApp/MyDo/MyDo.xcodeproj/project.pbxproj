@@ -86,6 +86,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0132926E1E14270900F758D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0132926F1E14271600F758D7 /* Classes */,
+				013292661E140F4600F758D7 /* Model.xcdatamodeld */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		0132926F1E14271600F758D7 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		0186165B1E0EFC0900D9950A = {
 			isa = PBXGroup;
 			children = (
@@ -109,11 +125,11 @@
 		018616661E0EFC0A00D9950A /* MyDo */ = {
 			isa = PBXGroup;
 			children = (
+				0132926E1E14270900F758D7 /* Model */,
 				018616671E0EFC0A00D9950A /* AppDelegate.swift */,
 				018616691E0EFC0A00D9950A /* ViewController.swift */,
 				0132925B1E12D8DC00F758D7 /* ItemsListTableViewCell.swift */,
 				0132926B1E140F9D00F758D7 /* CoredataStack.swift */,
-				013292661E140F4600F758D7 /* Model.xcdatamodeld */,
 				0186166B1E0EFC0A00D9950A /* Main.storyboard */,
 				0186166E1E0EFC0A00D9950A /* Assets.xcassets */,
 				018616701E0EFC0A00D9950A /* LaunchScreen.storyboard */,
