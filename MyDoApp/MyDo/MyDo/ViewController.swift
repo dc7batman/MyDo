@@ -133,6 +133,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 MGSwipeButton(title: "Done", backgroundColor: doneColor, callback: { (cell) -> Bool in
                     cell.refreshContentView();
                     (cell.leftButtons[0] as! UIButton).setTitle("Done", for: UIControlState());
+                    
+                    let indexPath = self.tableView.indexPath(for: cell)
+                    
+                    // Add activity
+                    let event: Event = self.todayEvents[(indexPath?.row)!]
+                    DataModelManager.sharedInstance.addActivity(eventId: Int(event.eventId), isDone: true)
+                    
+                    // Remove item
+                    self.todayEvents.remove(at: (indexPath?.row)!)
+                    
+                    // Remove cell
+                    self.tableView.beginUpdates()
+                    self.tableView.deleteRows(at: [indexPath!], with: .automatic)
+                    self.tableView.endUpdates()
+                    
                     return true
                 })
             ]
@@ -143,6 +158,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 MGSwipeButton(title: "Skip", backgroundColor: skipColor, callback: { (cell) -> Bool in
                     cell.refreshContentView();
                     (cell.leftButtons[0] as! UIButton).setTitle("Skip", for: UIControlState());
+                    
+                    let indexPath = self.tableView.indexPath(for: cell)
+                    
+                    // Add activity
+                    let event: Event = self.todayEvents[(indexPath?.row)!]
+                    DataModelManager.sharedInstance.addActivity(eventId: Int(event.eventId), isDone: false)
+                    
+                    // Remove item
+                    self.todayEvents.remove(at: (indexPath?.row)!)
+                    
+                    // Remove cell
+                    self.tableView.beginUpdates()
+                    self.tableView.deleteRows(at: [indexPath!], with: .automatic)
+                    self.tableView.endUpdates()
+                    
                     return true
                 })
             ]

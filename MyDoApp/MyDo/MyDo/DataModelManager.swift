@@ -41,6 +41,21 @@ class DataModelManager: NSObject {
         return events
     }
     
+    func fetchEvent(eventId: Int, moc: NSManagedObjectContext) -> Event? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Event")
+        let predicate = NSPredicate.init(format: "eventId == %d", argumentArray: [eventId])
+        fetchRequest.predicate = predicate
+        
+        var events : Array<Event> = [];
+        do {
+            events = try moc.fetch(fetchRequest) as! Array<Event>
+        } catch {
+            assert(false, "Fetching evets failed")
+        }
+        
+        return events.first
+    }
+    
     func maxEventId() -> Int {
         
         var maxId = 0
@@ -87,5 +102,25 @@ class DataModelManager: NSObject {
         }
         
         return event
+    }
+    
+    func addActivity(eventId: Int, isDone: Bool) {
+        
+        let moc = coreDataStack.backgroundMoc!
+        
+        let event = fetchEvent(eventId: eventId, moc: moc)
+        
+        let activity: Activity = NSEntityDescription.insertNewObject(forEntityName: "Activity", into: moc) as! Activity
+        activity.activityType = (isDone ? 1 : 0)
+        let currentDateStr = calendarHandler.formatter.string(from: Date())
+        let currentDate : NSDate = calendarHandler.formatter.date(from: currentDateStr)! as NSDate
+        activity.activityDate = currentDate
+        
+        event?.addToActivities(activity)
+        event?.lastActivityDate = currentDate
+        
+        moc.perform {
+            self.coreDataStack.doSaveMoc(moc: moc)
+        }
     }
 }
