@@ -13,6 +13,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     @IBOutlet weak var tableView: UITableView!
     
+    let doneColor = UIColor.init(red:2.0/255, green:178.0/255, blue:31.0/255, alpha:1.0)
+    let skipColor = UIColor.init(red:1.0, green:2.0/255, blue:31.0/255, alpha:1.0)
+    let grayColor = UIColor.init(red: 142.0/255, green: 142.0/255, blue: 147.0/255, alpha: 1.0)
+    let blueColor = UIColor.init(red: 28.0/255, green: 211.0/255, blue: 1.0, alpha: 1.0)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -23,6 +29,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedIndexPath, animated: true)
+        }
     }
     
     // Add new item
@@ -76,9 +89,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.delegate = self
         cell.itemNameLabel?.text = "Title"
         if indexPath.row % 2 == 0 {
-            cell.contentView.backgroundColor = UIColor.red
+            cell.contentView.backgroundColor = grayColor
         } else {
-            cell.contentView.backgroundColor = UIColor.blue
+            cell.contentView.backgroundColor = blueColor
         }
         return cell
     }
@@ -104,9 +117,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if direction == MGSwipeDirection.leftToRight {
             // Done
-            let color = UIColor.init(red:0.0, green:1.0, blue:0.0, alpha:1.0);
             return [
-                MGSwipeButton(title: "Done", backgroundColor: color, callback: { (cell) -> Bool in
+                MGSwipeButton(title: "Done", backgroundColor: doneColor, callback: { (cell) -> Bool in
                     cell.refreshContentView();
                     (cell.leftButtons[0] as! UIButton).setTitle("Done", for: UIControlState());
                     return true
@@ -115,9 +127,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
         } else {
             // Not done
-            let color = UIColor.init(red:1.0, green:0.0, blue:0.0, alpha:1.0);
             return [
-                MGSwipeButton(title: "Skip", backgroundColor: color, callback: { (cell) -> Bool in
+                MGSwipeButton(title: "Skip", backgroundColor: skipColor, callback: { (cell) -> Bool in
                     cell.refreshContentView();
                     (cell.leftButtons[0] as! UIButton).setTitle("Skip", for: UIControlState());
                     return true
