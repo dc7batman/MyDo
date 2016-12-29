@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="T5v-Nl-9Il">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="T5v-Nl-9Il">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -47,6 +47,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="itemNameLabel" destination="sEj-He-5xo" id="2aP-m8-fVh"/>
+                                            <segue destination="FEN-mp-NGY" kind="show" identifier="showEventDetails" id="x9h-xH-7Nr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -83,6 +84,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1248.8" y="790.25487256371821"/>
+        </scene>
+        <!--Event Details View Controller-->
+        <scene sceneID="pxf-fC-bYv">
+            <objects>
+                <viewController id="FEN-mp-NGY" customClass="EventDetailsViewController" customModule="MyDo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Cl8-pl-XID"/>
+                        <viewControllerLayoutGuide type="bottom" id="tE3-DC-kO4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ImP-b3-55f">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jrp-uu-zZQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2001" y="791"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="t7I-Cz-09M">
