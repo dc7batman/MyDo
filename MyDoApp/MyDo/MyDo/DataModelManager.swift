@@ -41,6 +41,38 @@ class DataModelManager: NSObject {
         return events
     }
     
+    func maxEventId() -> Int {
+        
+        var maxId = 0
+        
+        let moc = coreDataStack.backgroundMoc!
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Event")
+        fetchRequest.resultType = .dictionaryResultType
+        
+        let keyPathExpression = NSExpression.init(forKeyPath: "eventId")
+        let maxIdExpression = NSExpression.init(forFunction: "max:", arguments: [keyPathExpression])
+        
+        let expressionDiscription = NSExpressionDescription.init()
+        expressionDiscription.name = "maxEventId"
+        expressionDiscription.expression = maxIdExpression
+        expressionDiscription.expressionResultType = .integer16AttributeType
+        fetchRequest.propertiesToFetch = [expressionDiscription]
+        
+        var result: Array<Any> = []
+        
+        do {
+            result = try moc.fetch(fetchRequest)
+        } catch {
+            assert(false, "Fetching max event id failed")
+        }
+        
+        let dict: Dictionary = (result.first as? [String : Int])!
+        maxId = dict["maxEventId"]!
+        
+        return maxId
+    }
+    
     func createEventWithName(name: String) -> Event {
         
         let moc = coreDataStack.backgroundMoc!
@@ -48,7 +80,7 @@ class DataModelManager: NSObject {
         let event: Event = NSEntityDescription.insertNewObject(forEntityName: "Event", into: moc) as! Event
         event.name = name
         event.createdDate = NSDate()
-        event.eventId = 0
+        event.eventId = maxEventId()+1
         
         moc.perform {
             self.coreDataStack.doSaveMoc(moc: moc)
