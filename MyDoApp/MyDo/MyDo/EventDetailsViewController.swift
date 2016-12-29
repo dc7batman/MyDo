@@ -11,26 +11,32 @@ import UIKit
 class EventDetailsViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
 
     @IBOutlet weak var calendarView: FSCalendar!
+    let calendarHandler = CalendarHandler()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        calendarView.scopeGesture.isEnabled = true
+        calendarView.allowsMultipleSelection = true
+        calendarView.swipeToChooseGesture.isEnabled = true
+        calendarView.appearance.caseOptions = [.headerUsesUpperCase,.weekdayUsesSingleUpperCase]
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        print("Selected - \(calendarHandler.formatter.string(from: date))")
     }
-    */
 
+    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        print("Deselected - \(calendarHandler.formatter.string(from: date))")
+    }
+    
+    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
+    }
 }

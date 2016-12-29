@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--MyDo-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MyDo" customModuleProvider="target" sceneMemberID="viewController">
@@ -65,7 +65,7 @@
                             <constraint firstItem="T5v-Nl-9Il" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="sLm-12-iJo"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="mPj-X4-hpu">
+                    <navigationItem key="navigationItem" title="MyDo" id="mPj-X4-hpu">
                         <barButtonItem key="leftBarButtonItem" systemItem="reply" id="2fW-aN-wbt">
                             <connections>
                                 <action selector="sendFeedback:" destination="BYZ-38-t0r" id="mut-ij-xfX"/>
@@ -98,7 +98,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0i0-pS-qfi" customClass="FSCalendar">
-                                <rect key="frame" x="0.0" y="64" width="375" height="310"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="084-7w-GDy"/>
