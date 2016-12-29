@@ -32,7 +32,7 @@ class CoredataStack: NSObject {
     func databaseFilePath() -> NSURL? {
         
         let libraryUrl = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first
-        let fileUrl = libraryUrl?.appendingPathComponent("AppLibrary")
+        let fileUrl = libraryUrl?.appendingPathComponent("MyDoData")
         if !FileManager.default.fileExists(atPath: (fileUrl?.path)!) {
             do {
                 try FileManager.default.createDirectory(at: fileUrl!, withIntermediateDirectories: false, attributes: nil)
@@ -44,8 +44,10 @@ class CoredataStack: NSObject {
     }
     
     func setupManagedObjectModel() {
-        let modelurl = Bundle.main.url(forResource: "Model", withExtension: "momd")
-        managedObjectModel = NSManagedObjectModel.init(contentsOf: modelurl!)
+        guard let modelurl = Bundle.main.url(forResource: "Model", withExtension: "momd") else {
+            assert(false, "Uncable to find model url")
+        }
+        managedObjectModel = NSManagedObjectModel.init(contentsOf: modelurl)
     }
     
     func setupStoreCoordinator() {
@@ -59,7 +61,7 @@ class CoredataStack: NSObject {
         let storeUrl : URL = databaseFilePath() as! URL
         
         do {
-            store = try storeCoordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: "ModelConfig", at: storeUrl, options: options)
+            store = try storeCoordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeUrl, options: options)
         }
         catch {
             assert(false, "Store creation failed")
@@ -80,5 +82,28 @@ class CoredataStack: NSObject {
     func setupBackgroundContext() {
         backgroundMoc = NSManagedObjectContext.init(concurrencyType: .privateQueueConcurrencyType)
         backgroundMoc?.parent = mainMoc
+    }
+    
+    func doSaveMoc(moc: NSManagedObjectContext) {
+        
+        if moc.insertedObjects.count > 0 {
+            do {
+                try moc.obtainPermanentIDs(for: Array(moc.insertedObjects))
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+            
+            do {
+                try moc.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+            
+            if let parentMoc = moc.parent {
+                doSaveMoc(moc: parentMoc)
+            }
+        }
     }
 }

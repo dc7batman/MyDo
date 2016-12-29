@@ -56,7 +56,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func addNewItemWithName(name: String) -> Void {
-        print(name)
+        if name.characters.count > 0 {
+            let event: Event = DataModelManager.sharedInstance.createEventWithName(name: name)
+            todayEvents.insert(event, at: 0)
+            tableView.beginUpdates()
+            tableView.insertRows(at: [IndexPath.init(row: 0, section: 0)], with: .automatic)
+            tableView.endUpdates()
+        }
     }
     
     // Send feedback mail

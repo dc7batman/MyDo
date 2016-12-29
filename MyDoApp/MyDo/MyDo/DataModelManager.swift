@@ -23,16 +23,12 @@ class DataModelManager: NSObject {
         super.init()
     }
     
-    func createEvent(name: String) {
-        
-    }
-    
     func fetchTodayEvents() -> Array<Event> {
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Event")
         let currentDateStr = calendarHandler.formatter.string(from: Date())
         let currentDate = calendarHandler.formatter.date(from: currentDateStr)!
-        let predicate = NSPredicate.init(format: "lastActivityDate != %@", argumentArray: [currentDate])
+        let predicate = NSPredicate.init(format: "lastActivityDate < %@ OR lastActivityDate == nil", argumentArray: [currentDate])
         fetchRequest.predicate = predicate
         
         var events : Array<Event> = [];
@@ -43,5 +39,21 @@ class DataModelManager: NSObject {
         }
         
         return events
+    }
+    
+    func createEventWithName(name: String) -> Event {
+        
+        let moc = coreDataStack.backgroundMoc!
+        
+        let event: Event = NSEntityDescription.insertNewObject(forEntityName: "Event", into: moc) as! Event
+        event.name = name
+        event.createdDate = NSDate()
+        event.eventId = 0
+        
+        moc.perform {
+            self.coreDataStack.doSaveMoc(moc: moc)
+        }
+        
+        return event
     }
 }
