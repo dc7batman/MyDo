@@ -11,8 +11,12 @@ import UIKit
 class EventDetailsViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
 
     @IBOutlet weak var calendarView: FSCalendar!
-    let calendarHandler = CalendarHandler()
     
+    let calendarHandler = CalendarHandler()
+    var successActivities: [Activity]?
+    
+    
+    var eventId : Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +26,8 @@ class EventDetailsViewController: UIViewController, FSCalendarDataSource, FSCale
         calendarView.allowsMultipleSelection = true
         calendarView.swipeToChooseGesture.isEnabled = true
         calendarView.appearance.caseOptions = [.headerUsesUpperCase,.weekdayUsesSingleUpperCase]
+        
+        updateCalendarSate()
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,14 +35,23 @@ class EventDetailsViewController: UIViewController, FSCalendarDataSource, FSCale
         // Dispose of any resources that can be recreated.
     }
     
+    func updateCalendarSate() {
+        successActivities = DataModelManager.sharedInstance.successActivities(eventId: eventId!)
+        if let activities = successActivities {
+            for activity:Activity in activities {
+                let date = activity.activityDate as Date?
+                calendarView.select(date, scrollToDate: false)
+            }
+        }
+        
+    }
+    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("Selected - \(calendarHandler.formatter.string(from: date))")
+        // add Activity
+        DataModelManager.sharedInstance.addActivity(eventId: eventId!, isDone: true, date: date)
     }
 
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("Deselected - \(calendarHandler.formatter.string(from: date))")
-    }
-    
-    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
+        DataModelManager.sharedInstance.addActivity(eventId: eventId!, isDone: false, date: date)
     }
 }

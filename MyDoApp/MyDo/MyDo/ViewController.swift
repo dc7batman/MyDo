@@ -37,7 +37,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: selectedIndexPath, animated: true)
+            tableView.deselectRow(at: selectedIndexPath, animated: false)
         }
     }
     
@@ -176,6 +176,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     return true
                 })
             ]
+        }
+    }
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "showEventDetails" {
+            let indexPath = tableView.indexPathForSelectedRow
+            let event = todayEvents[(indexPath?.row)!]
+            let eventDetailsVC = segue.destination as! EventDetailsViewController
+            eventDetailsVC.title = event.name
+            eventDetailsVC.eventId = Int(event.eventId)
         }
     }
 }

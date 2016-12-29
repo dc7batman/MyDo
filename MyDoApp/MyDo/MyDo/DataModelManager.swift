@@ -26,10 +26,10 @@ class DataModelManager: NSObject {
     func fetchTodayEvents() -> Array<Event> {
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Event")
-        let currentDateStr = calendarHandler.formatter.string(from: Date())
-        let currentDate = calendarHandler.formatter.date(from: currentDateStr)!
-        let predicate = NSPredicate.init(format: "lastActivityDate < %@ OR lastActivityDate == nil", argumentArray: [currentDate])
-        fetchRequest.predicate = predicate
+//        let currentDateStr = calendarHandler.formatter.string(from: Date())
+//        let currentDate = calendarHandler.formatter.date(from: currentDateStr)!
+//        let predicate = NSPredicate.init(format: "lastActivityDate < %@ OR lastActivityDate == nil", argumentArray: [currentDate])
+//        fetchRequest.predicate = predicate
         
         var events : Array<Event> = [];
         do {
@@ -122,5 +122,46 @@ class DataModelManager: NSObject {
         moc.perform {
             self.coreDataStack.doSaveMoc(moc: moc)
         }
+    }
+    
+    func addActivity(eventId: Int, isDone: Bool, date: Date) {
+        let moc = coreDataStack.backgroundMoc!
+        
+        let event = fetchEvent(eventId: eventId, moc: moc)
+        
+        let activity: Activity = NSEntityDescription.insertNewObject(forEntityName: "Activity", into: moc) as! Activity
+        activity.activityType = (isDone ? 1 : 0)
+        let currentDateStr = calendarHandler.formatter.string(from: date)
+        let currentDate : NSDate = calendarHandler.formatter.date(from: currentDateStr)! as NSDate
+        activity.activityDate = currentDate
+        
+        event?.addToActivities(activity)
+        event?.lastActivityDate = currentDate
+        
+        moc.perform {
+            self.coreDataStack.doSaveMoc(moc: moc)
+        }
+    }
+    
+    func successActivities(eventId: Int) -> Array<Activity>? {
+        
+        var successActivities: [Activity]?
+        let moc = coreDataStack.mainMoc!
+        
+        if let event: Event = fetchEvent(eventId: eventId, moc: moc) {
+            
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Activity")
+            let predicate = NSPredicate.init(format: "event == %@ AND activityType = %d", argumentArray: [event,1])
+            fetchRequest.predicate = predicate
+            
+            do {
+                successActivities = try moc.fetch(fetchRequest) as? Array<Activity>
+            } catch {
+                assert(false, "Fetching evets failed")
+            }
+            
+        }
+        
+        return successActivities
     }
 }
