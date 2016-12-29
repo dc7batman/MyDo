@@ -44,10 +44,11 @@ class CoredataStack: NSObject {
     }
     
     func setupManagedObjectModel() {
-        guard let modelurl = Bundle.main.url(forResource: "Model", withExtension: "momd") else {
+        if let modelurl = Bundle.main.url(forResource: "Model", withExtension: "momd") {
+            managedObjectModel = NSManagedObjectModel.init(contentsOf: modelurl)
+        } else {
             assert(false, "Uncable to find model url")
         }
-        managedObjectModel = NSManagedObjectModel.init(contentsOf: modelurl)
     }
     
     func setupStoreCoordinator() {
