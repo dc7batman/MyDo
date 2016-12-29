@@ -8,8 +8,10 @@
 
 import UIKit
 
-class EventDetailsViewController: UIViewController {
+class EventDetailsViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
 
+    @IBOutlet weak var calendarView: FSCalendar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,7 +22,6 @@ class EventDetailsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation
