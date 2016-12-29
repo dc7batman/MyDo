@@ -9,7 +9,7 @@
 import UIKit
 import MessageUI
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, MGSwipeTableCellDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -73,6 +73,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCellId", for: indexPath) as! ItemsListTableViewCell
+        cell.delegate = self
         cell.itemNameLabel?.text = "Title"
         if indexPath.row % 2 == 0 {
             cell.contentView.backgroundColor = UIColor.red
@@ -86,6 +87,43 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // Tableview Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    }
+    
+    // MGSwipeTableCellDelegate
+    func swipeTableCell(_ cell: MGSwipeTableCell, canSwipe direction: MGSwipeDirection, from point: CGPoint) -> Bool {
+        return true
+    }
+    
+    func swipeTableCell(_ cell: MGSwipeTableCell, swipeButtonsFor direction: MGSwipeDirection, swipeSettings: MGSwipeSettings, expansionSettings: MGSwipeExpansionSettings) -> [UIView]? {
+        
+        swipeSettings.transition = MGSwipeTransition.border;
+        expansionSettings.buttonIndex = 0;
+        
+        expansionSettings.fillOnTrigger = false
+        expansionSettings.threshold = 2
+        
+        if direction == MGSwipeDirection.leftToRight {
+            // Done
+            let color = UIColor.init(red:0.0, green:1.0, blue:0.0, alpha:1.0);
+            return [
+                MGSwipeButton(title: "Done", backgroundColor: color, callback: { (cell) -> Bool in
+                    cell.refreshContentView();
+                    (cell.leftButtons[0] as! UIButton).setTitle("Done", for: UIControlState());
+                    return true
+                })
+            ]
+            
+        } else {
+            // Not done
+            let color = UIColor.init(red:1.0, green:0.0, blue:0.0, alpha:1.0);
+            return [
+                MGSwipeButton(title: "Skip", backgroundColor: color, callback: { (cell) -> Bool in
+                    cell.refreshContentView();
+                    (cell.leftButtons[0] as! UIButton).setTitle("Skip", for: UIControlState());
+                    return true
+                })
+            ]
+        }
     }
 }
 

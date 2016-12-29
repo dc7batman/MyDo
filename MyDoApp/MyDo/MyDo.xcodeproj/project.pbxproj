@@ -11,6 +11,8 @@
 		013292681E140F4600F758D7 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 013292661E140F4600F758D7 /* Model.xcdatamodeld */; };
 		0132926C1E140F9D00F758D7 /* CoredataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0132926B1E140F9D00F758D7 /* CoredataStack.swift */; };
 		013292811E14E5A700F758D7 /* EventDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013292801E14E5A700F758D7 /* EventDetailsViewController.swift */; };
+		013292881E14F24C00F758D7 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 013292851E14F24C00F758D7 /* MGSwipeButton.m */; };
+		013292891E14F24C00F758D7 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 013292871E14F24C00F758D7 /* MGSwipeTableCell.m */; };
 		018616681E0EFC0A00D9950A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018616671E0EFC0A00D9950A /* AppDelegate.swift */; };
 		0186166A1E0EFC0A00D9950A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018616691E0EFC0A00D9950A /* ViewController.swift */; };
 		0186166D1E0EFC0A00D9950A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0186166B1E0EFC0A00D9950A /* Main.storyboard */; };
@@ -44,6 +46,11 @@
 		013292671E140F4600F758D7 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		0132926B1E140F9D00F758D7 /* CoredataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoredataStack.swift; sourceTree = "<group>"; };
 		013292801E14E5A700F758D7 /* EventDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailsViewController.swift; sourceTree = "<group>"; };
+		013292831E14F24C00F758D7 /* MyDo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyDo-Bridging-Header.h"; sourceTree = "<group>"; };
+		013292841E14F24C00F758D7 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
+		013292851E14F24C00F758D7 /* MGSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeButton.m; sourceTree = "<group>"; };
+		013292861E14F24C00F758D7 /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
+		013292871E14F24C00F758D7 /* MGSwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeTableCell.m; sourceTree = "<group>"; };
 		018616641E0EFC0A00D9950A /* MyDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		018616671E0EFC0A00D9950A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		018616691E0EFC0A00D9950A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +103,18 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		013292821E14F23F00F758D7 /* SwipeCell */ = {
+			isa = PBXGroup;
+			children = (
+				013292841E14F24C00F758D7 /* MGSwipeButton.h */,
+				013292851E14F24C00F758D7 /* MGSwipeButton.m */,
+				013292861E14F24C00F758D7 /* MGSwipeTableCell.h */,
+				013292871E14F24C00F758D7 /* MGSwipeTableCell.m */,
+				013292831E14F24C00F758D7 /* MyDo-Bridging-Header.h */,
+			);
+			name = SwipeCell;
+			sourceTree = "<group>";
+		};
 		0186165B1E0EFC0900D9950A = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +138,7 @@
 		018616661E0EFC0A00D9950A /* MyDo */ = {
 			isa = PBXGroup;
 			children = (
+				013292821E14F23F00F758D7 /* SwipeCell */,
 				0132926E1E14270900F758D7 /* Model */,
 				018616671E0EFC0A00D9950A /* AppDelegate.swift */,
 				018616691E0EFC0A00D9950A /* ViewController.swift */,
@@ -223,6 +243,7 @@
 					018616631E0EFC0A00D9950A = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = V83N2V5JCW;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					018616771E0EFC0A00D9950A = {
@@ -308,11 +329,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				013292811E14E5A700F758D7 /* EventDetailsViewController.swift in Sources */,
+				013292891E14F24C00F758D7 /* MGSwipeTableCell.m in Sources */,
 				0132925C1E12D8DC00F758D7 /* ItemsListTableViewCell.swift in Sources */,
 				0186166A1E0EFC0A00D9950A /* ViewController.swift in Sources */,
 				0132926C1E140F9D00F758D7 /* CoredataStack.swift in Sources */,
 				018616681E0EFC0A00D9950A /* AppDelegate.swift in Sources */,
 				013292681E140F4600F758D7 /* Model.xcdatamodeld in Sources */,
+				013292881E14F24C00F758D7 /* MGSwipeButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +485,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = V83N2V5JCW;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -472,6 +496,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iamcrazymohan.MyDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mohan/Documents/Mohan/MohanPersonal/Git/MyDo/MyDoApp/MyDo/MyDo/MyDo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -480,6 +506,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = V83N2V5JCW;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -490,6 +517,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iamcrazymohan.MyDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mohan/Documents/Mohan/MohanPersonal/Git/MyDo/MyDoApp/MyDo/MyDo/MyDo-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

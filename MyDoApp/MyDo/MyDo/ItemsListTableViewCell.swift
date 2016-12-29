@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ItemsListTableViewCell: UITableViewCell {
+class ItemsListTableViewCell: MGSwipeTableCell {
 
     @IBOutlet weak var itemNameLabel: UILabel!
     
