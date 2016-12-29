@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 class EventDetailsViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
 
@@ -49,9 +50,19 @@ class EventDetailsViewController: UIViewController, FSCalendarDataSource, FSCale
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         // add Activity
         DataModelManager.sharedInstance.addActivity(eventId: eventId!, isDone: true, date: date)
+        
+        Answers.logCustomEvent(withName: "Create Activity",
+                               customAttributes: [
+                                "Activity type" : "Done",
+                                "Source" : "Calendar"])
     }
 
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
         DataModelManager.sharedInstance.addActivity(eventId: eventId!, isDone: false, date: date)
+        
+        Answers.logCustomEvent(withName: "Create Activity",
+                               customAttributes: [
+                                "Activity type" : "Skip",
+                                "Source" : "Calendar"])
     }
 }

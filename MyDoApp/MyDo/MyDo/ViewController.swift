@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import Crashlytics
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, MGSwipeTableCellDelegate {
 
@@ -62,6 +63,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             tableView.beginUpdates()
             tableView.insertRows(at: [IndexPath.init(row: 0, section: 0)], with: .automatic)
             tableView.endUpdates()
+            
+            Answers.logCustomEvent(withName: "Create Event",
+                                           customAttributes: [
+                                            "Event Name": name])
         }
     }
     
@@ -148,6 +153,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.tableView.deleteRows(at: [indexPath!], with: .automatic)
                     self.tableView.endUpdates()
                     
+                    Answers.logCustomEvent(withName: "Create Activity",
+                                           customAttributes: [
+                                            "Activity type" : "Done",
+                                            "Source" : "Event List"])
+                    
                     return true
                 })
             ]
@@ -173,6 +183,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.tableView.deleteRows(at: [indexPath!], with: .automatic)
                     self.tableView.endUpdates()
                     
+                    Answers.logCustomEvent(withName: "Create Activity",
+                                           customAttributes: [
+                                            "Activity type" : "Skip",
+                                            "Source" : "Event List"])
+                    
                     return true
                 })
             ]
@@ -190,6 +205,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let eventDetailsVC = segue.destination as! EventDetailsViewController
             eventDetailsVC.title = event.name
             eventDetailsVC.eventId = Int(event.eventId)
+            
+            Answers.logCustomEvent(withName: "Check Details",
+                                   customAttributes: [
+                                    "Event Name": event.name!])
         }
     }
 }
