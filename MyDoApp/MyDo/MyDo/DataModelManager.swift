@@ -26,10 +26,10 @@ class DataModelManager: NSObject {
     func fetchTodayEvents() -> Array<Event> {
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Event")
-//        let currentDateStr = calendarHandler.formatter.string(from: Date())
-//        let currentDate = calendarHandler.formatter.date(from: currentDateStr)!
-//        let predicate = NSPredicate.init(format: "lastActivityDate < %@ OR lastActivityDate == nil", argumentArray: [currentDate])
-//        fetchRequest.predicate = predicate
+        let currentDateStr = calendarHandler.formatter.string(from: Date())
+        let currentDate = calendarHandler.formatter.date(from: currentDateStr)!
+        let predicate = NSPredicate.init(format: "lastActivityDate < %@ OR lastActivityDate == nil", argumentArray: [currentDate])
+        fetchRequest.predicate = predicate
         
         var events : Array<Event> = [];
         do {
@@ -104,24 +104,26 @@ class DataModelManager: NSObject {
         return event
     }
     
-    func addActivity(eventId: Int, isDone: Bool) {
+    func fetchActivity(eventId: Int, date: Date, moc: NSManagedObjectContext) -> Activity? {
         
-        let moc = coreDataStack.backgroundMoc!
+        let event: Event = fetchEvent(eventId: eventId, moc: moc)!
         
-        let event = fetchEvent(eventId: eventId, moc: moc)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Activity")
+        let predicate = NSPredicate.init(format: "event == %@ AND activityDate = %@", argumentArray: [event,1,date])
+        fetchRequest.predicate = predicate
         
-        let activity: Activity = NSEntityDescription.insertNewObject(forEntityName: "Activity", into: moc) as! Activity
-        activity.activityType = (isDone ? 1 : 0)
-        let currentDateStr = calendarHandler.formatter.string(from: Date())
-        let currentDate : NSDate = calendarHandler.formatter.date(from: currentDateStr)! as NSDate
-        activity.activityDate = currentDate
-        
-        event?.addToActivities(activity)
-        event?.lastActivityDate = currentDate
-        
-        moc.perform {
-            self.coreDataStack.doSaveMoc(moc: moc)
+        var activities: [Activity]?
+        do {
+            activities = try moc.fetch(fetchRequest) as? Array<Activity>
+        } catch {
+            assert(false, "Fetching evets failed")
         }
+        
+        return activities?.first
+    }
+    
+    func addActivity(eventId: Int, isDone: Bool) {
+        addActivity(eventId: eventId, isDone: isDone, date: Date())
     }
     
     func addActivity(eventId: Int, isDone: Bool, date: Date) {
@@ -129,14 +131,32 @@ class DataModelManager: NSObject {
         
         let event = fetchEvent(eventId: eventId, moc: moc)
         
-        let activity: Activity = NSEntityDescription.insertNewObject(forEntityName: "Activity", into: moc) as! Activity
-        activity.activityType = (isDone ? 1 : 0)
+        var activity: Activity?
+        var shouldAddActivity: Bool?
+        
+        
+        let activityType: Int = (isDone ? 1 : 0)
+        
+        if let a = fetchActivity(eventId: eventId, date: date, moc: moc) {
+            activity = a
+            shouldAddActivity = false
+        } else {
+            activity = NSEntityDescription.insertNewObject(forEntityName: "Activity", into: moc) as? Activity
+            shouldAddActivity = true
+        }
+        
+        activity?.activityType = Int16(activityType)
         let currentDateStr = calendarHandler.formatter.string(from: date)
         let currentDate : NSDate = calendarHandler.formatter.date(from: currentDateStr)! as NSDate
-        activity.activityDate = currentDate
+        activity?.activityDate = currentDate
         
-        event?.addToActivities(activity)
-        event?.lastActivityDate = currentDate
+        if shouldAddActivity! {
+            event?.addToActivities(activity!)
+        }
+        
+        if calendarHandler.isToday(date: date) {
+            event?.lastActivityDate = currentDate
+        }
         
         moc.perform {
             self.coreDataStack.doSaveMoc(moc: moc)

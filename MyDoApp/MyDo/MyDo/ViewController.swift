@@ -48,7 +48,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
         }
         let addAction = UIAlertAction(title: "Add", style: .default) { (_) in
-            let itemName = alertController.textFields!.first?.text
+            let itemName = alertController.textFields!.first?.text?.capitalized
             self.addNewItemWithName(name: itemName!)
         }
         alertController.addAction(addAction)
