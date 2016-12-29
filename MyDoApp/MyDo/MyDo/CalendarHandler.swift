@@ -17,7 +17,4 @@ class CalendarHandler: NSObject {
     }()
     
     private let gregorian: NSCalendar! = NSCalendar(calendarIdentifier:NSCalendar.Identifier.gregorian)
-    
-    
-
 }

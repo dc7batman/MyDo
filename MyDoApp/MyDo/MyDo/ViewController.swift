@@ -18,12 +18,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let grayColor = UIColor.init(red: 142.0/255, green: 142.0/255, blue: 147.0/255, alpha: 1.0)
     let blueColor = UIColor.init(red: 28.0/255, green: 211.0/255, blue: 1.0, alpha: 1.0)
     
+    var todayEvents : [Event] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         let _ = CoredataStack.init()
+        
+        todayEvents = DataModelManager.sharedInstance.fetchTodayEvents()
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,7 +80,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // TableView datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return todayEvents.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -87,12 +90,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCellId", for: indexPath) as! ItemsListTableViewCell
         cell.delegate = self
-        cell.itemNameLabel?.text = "Title"
         if indexPath.row % 2 == 0 {
             cell.contentView.backgroundColor = grayColor
         } else {
             cell.contentView.backgroundColor = blueColor
         }
+        
+        let event : Event = todayEvents[indexPath.row]
+        cell.itemNameLabel?.text = event.name
+        
         return cell
     }
     
