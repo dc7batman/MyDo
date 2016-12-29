@@ -109,7 +109,7 @@ class DataModelManager: NSObject {
         let event: Event = fetchEvent(eventId: eventId, moc: moc)!
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Activity")
-        let predicate = NSPredicate.init(format: "event == %@ AND activityDate = %@", argumentArray: [event,1,date])
+        let predicate = NSPredicate.init(format: "event == %@ AND activityDate = %@", argumentArray: [event,date])
         fetchRequest.predicate = predicate
         
         var activities: [Activity]?
@@ -132,27 +132,22 @@ class DataModelManager: NSObject {
         let event = fetchEvent(eventId: eventId, moc: moc)
         
         var activity: Activity?
-        var shouldAddActivity: Bool?
-        
         
         let activityType: Int = (isDone ? 1 : 0)
         
+        let currentDateStr = calendarHandler.formatter.string(from: date)
+        let currentDate : NSDate = calendarHandler.formatter.date(from: currentDateStr)! as NSDate
+        
         if let a = fetchActivity(eventId: eventId, date: date, moc: moc) {
             activity = a
-            shouldAddActivity = false
         } else {
             activity = NSEntityDescription.insertNewObject(forEntityName: "Activity", into: moc) as? Activity
-            shouldAddActivity = true
+            activity?.activityDate = currentDate
         }
         
         activity?.activityType = Int16(activityType)
-        let currentDateStr = calendarHandler.formatter.string(from: date)
-        let currentDate : NSDate = calendarHandler.formatter.date(from: currentDateStr)! as NSDate
-        activity?.activityDate = currentDate
         
-        if shouldAddActivity! {
-            event?.addToActivities(activity!)
-        }
+        event?.addToActivities(activity!)
         
         if calendarHandler.isToday(date: date) {
             event?.lastActivityDate = currentDate

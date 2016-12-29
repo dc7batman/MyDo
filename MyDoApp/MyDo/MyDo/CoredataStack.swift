@@ -86,24 +86,22 @@ class CoredataStack: NSObject {
     
     func doSaveMoc(moc: NSManagedObjectContext) {
         
-        if moc.insertedObjects.count > 0 {
-            do {
-                try moc.obtainPermanentIDs(for: Array(moc.insertedObjects))
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-            
-            do {
-                try moc.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-            
-            if let parentMoc = moc.parent {
-                doSaveMoc(moc: parentMoc)
-            }
+        do {
+            try moc.obtainPermanentIDs(for: Array(moc.insertedObjects))
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+        
+        do {
+            try moc.save()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+        
+        if let parentMoc = moc.parent {
+            doSaveMoc(moc: parentMoc)
         }
     }
 }
