@@ -27,6 +27,8 @@ class EventDetailsViewController: UIViewController, FSCalendarDataSource, FSCale
         calendarView.allowsMultipleSelection = true
         calendarView.swipeToChooseGesture.isEnabled = true
         calendarView.appearance.caseOptions = [.headerUsesUpperCase,.weekdayUsesSingleUpperCase]
+        calendarView.appearance.selectionColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        calendarView.appearance.todayColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         
         updateCalendarSate()
     }
