@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--MyDo-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MyDo" customModuleProvider="target" sceneMemberID="viewController">
@@ -20,18 +20,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="T5v-Nl-9Il">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="T5v-Nl-9Il">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="listCellId" id="GQY-qG-CPJ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="listCellId" id="GQY-qG-CPJ" customClass="ItemsListTableViewCell" customModule="MyDo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GQY-qG-CPJ" id="a3k-wt-XWm">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEj-He-5xo">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="sEj-He-5xo" firstAttribute="top" secondItem="a3k-wt-XWm" secondAttribute="top" id="HCU-oy-1tc"/>
+                                                <constraint firstAttribute="bottom" secondItem="sEj-He-5xo" secondAttribute="bottom" id="RdK-mG-RAQ"/>
+                                                <constraint firstItem="sEj-He-5xo" firstAttribute="leading" secondItem="a3k-wt-XWm" secondAttribute="leading" id="ZwE-mX-eZN"/>
+                                                <constraint firstAttribute="trailing" secondItem="sEj-He-5xo" secondAttribute="trailing" id="f1o-Bx-sIY"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="itemNameLabel" destination="sEj-He-5xo" id="2aP-m8-fVh"/>
+                                            <segue destination="FEN-mp-NGY" kind="show" identifier="showEventDetails" id="x9h-xH-7Nr"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -41,8 +58,25 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="T5v-Nl-9Il" secondAttribute="trailing" id="S9q-cd-HQI"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="T5v-Nl-9Il" secondAttribute="bottom" id="TbB-J7-Nv0"/>
+                            <constraint firstItem="T5v-Nl-9Il" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="jh3-mx-YNw"/>
+                            <constraint firstItem="T5v-Nl-9Il" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="sLm-12-iJo"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="mPj-X4-hpu"/>
+                    <navigationItem key="navigationItem" title="MyDo" id="mPj-X4-hpu">
+                        <barButtonItem key="leftBarButtonItem" systemItem="reply" id="2fW-aN-wbt">
+                            <connections>
+                                <action selector="sendFeedback:" destination="BYZ-38-t0r" id="mut-ij-xfX"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="fF4-e8-xxI">
+                            <connections>
+                                <action selector="addNewItem:" destination="BYZ-38-t0r" id="UUa-4L-Emr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="T5v-Nl-9Il" id="Z6j-YM-knN"/>
                     </connections>
@@ -50,6 +84,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1248.8" y="790.25487256371821"/>
+        </scene>
+        <!--Data Source-->
+        <scene sceneID="pxf-fC-bYv">
+            <objects>
+                <viewController id="FEN-mp-NGY" customClass="EventDetailsViewController" customModule="MyDo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Cl8-pl-XID"/>
+                        <viewControllerLayoutGuide type="bottom" id="tE3-DC-kO4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ImP-b3-55f">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0i0-pS-qfi" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="64" width="375" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="084-7w-GDy"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="FEN-mp-NGY" id="8z5-ll-que"/>
+                                    <outlet property="delegate" destination="FEN-mp-NGY" id="0UE-cI-mBO"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="0i0-pS-qfi" secondAttribute="trailing" id="64A-g5-WGH"/>
+                            <constraint firstItem="0i0-pS-qfi" firstAttribute="top" secondItem="Cl8-pl-XID" secondAttribute="bottom" id="cdp-gM-11X"/>
+                            <constraint firstItem="0i0-pS-qfi" firstAttribute="leading" secondItem="ImP-b3-55f" secondAttribute="leading" id="eQN-6t-PXo"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="calendarView" destination="0i0-pS-qfi" id="maX-Fy-RpK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jrp-uu-zZQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2000.8" y="790.25487256371821"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="t7I-Cz-09M">
