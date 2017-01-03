@@ -49,6 +49,10 @@ class EventDetailsViewController: UIViewController, FSCalendarDataSource, FSCale
         
     }
     
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        return (calendarHandler.gregorian .compare(Date(), to: date, toUnitGranularity: .day) != .orderedAscending)
+    }
+    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         // add Activity
         DataModelManager.sharedInstance.addActivity(eventId: eventId!, isDone: true, date: date)
