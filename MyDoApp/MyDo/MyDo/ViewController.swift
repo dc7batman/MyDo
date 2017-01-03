@@ -141,7 +141,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         swipeSettings.transition = MGSwipeTransition.border;
         expansionSettings.buttonIndex = 0;
         
-        expansionSettings.fillOnTrigger = false
+        expansionSettings.fillOnTrigger = true
         expansionSettings.threshold = 2
         
         if direction == MGSwipeDirection.leftToRight {
