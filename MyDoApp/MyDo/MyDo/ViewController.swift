@@ -44,7 +44,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // Add new item
     @IBAction func addNewItem(_ sender: Any) {
-        let alertController = UIAlertController.init(title: "Add", message: "Add new item", preferredStyle: .alert)
+        let alertController = UIAlertController.init(title: "Add a habit", message: "", preferredStyle: .alert)
         alertController.addTextField { (textField) in
             
         }
@@ -53,6 +53,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.addNewItemWithName(name: itemName!)
         }
         alertController.addAction(addAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (_) in
+            alertController.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(cancelAction)
         present(alertController,animated: true)
     }
     
