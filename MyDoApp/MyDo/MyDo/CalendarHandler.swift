@@ -16,7 +16,7 @@ class CalendarHandler: NSObject {
         return formatter
     }()
     
-    private let gregorian: NSCalendar! = NSCalendar(calendarIdentifier:NSCalendar.Identifier.gregorian)
+    let gregorian: NSCalendar! = NSCalendar(calendarIdentifier:NSCalendar.Identifier.gregorian)
     
     func isToday(date: Date) -> Bool {
         return gregorian.isDateInToday(date)
