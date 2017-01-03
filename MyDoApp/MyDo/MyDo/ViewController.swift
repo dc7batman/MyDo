@@ -67,6 +67,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             Answers.logCustomEvent(withName: "Create Event",
                                            customAttributes: [
                                             "Event Name": name])
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                self.tableView.reloadData()
+            })
         }
     }
     
@@ -157,6 +161,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.tableView.deleteRows(at: [indexPath!], with: .automatic)
                     self.tableView.endUpdates()
                     
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                        self.tableView.reloadData()
+                    })
+                    
                     Answers.logCustomEvent(withName: "Create Activity",
                                            customAttributes: [
                                             "Activity type" : "Done",
@@ -186,6 +194,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.tableView.beginUpdates()
                     self.tableView.deleteRows(at: [indexPath!], with: .automatic)
                     self.tableView.endUpdates()
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                        self.tableView.reloadData()
+                    })
                     
                     Answers.logCustomEvent(withName: "Create Activity",
                                            customAttributes: [
