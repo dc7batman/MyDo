@@ -28,11 +28,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let _ = CoredataStack.init()
         
         todayEvents = DataModelManager.sharedInstance.fetchTodayEvents()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didDeleteHabit), name: Notification.Name(rawValue: "mydo.deleteHabit"), object: nil)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func didDeleteHabit() {
+        todayEvents = DataModelManager.sharedInstance.fetchTodayEvents()
+        tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -108,12 +108,29 @@
                                     <outlet property="delegate" destination="FEN-mp-NGY" id="0UE-cI-mBO"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dam-ZJ-Dmu">
+                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="4hO-SK-xIS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Delete">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteEvent:" destination="FEN-mp-NGY" eventType="touchUpInside" id="MyQ-ZJ-iLZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="0i0-pS-qfi" secondAttribute="trailing" id="64A-g5-WGH"/>
+                            <constraint firstItem="tE3-DC-kO4" firstAttribute="top" secondItem="dam-ZJ-Dmu" secondAttribute="bottom" id="8SB-pJ-XB8"/>
+                            <constraint firstItem="dam-ZJ-Dmu" firstAttribute="leading" secondItem="ImP-b3-55f" secondAttribute="leading" id="Ltb-G8-ObL"/>
                             <constraint firstItem="0i0-pS-qfi" firstAttribute="top" secondItem="Cl8-pl-XID" secondAttribute="bottom" id="cdp-gM-11X"/>
                             <constraint firstItem="0i0-pS-qfi" firstAttribute="leading" secondItem="ImP-b3-55f" secondAttribute="leading" id="eQN-6t-PXo"/>
+                            <constraint firstAttribute="trailing" secondItem="dam-ZJ-Dmu" secondAttribute="trailing" id="nQg-r3-Qu9"/>
                         </constraints>
                     </view>
                     <connections>

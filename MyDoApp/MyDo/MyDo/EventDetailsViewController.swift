@@ -71,4 +71,21 @@ class EventDetailsViewController: UIViewController, FSCalendarDataSource, FSCale
                                 "Activity type" : "Skip",
                                 "Source" : "Calendar"])
     }
+    
+    @IBAction func deleteEvent(_ sender: Any) {
+        
+        let alertController = UIAlertController.init(title: "Delete habit", message: "Deleting this will remove all your tracking information", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .default) { (_) in
+            DataModelManager.sharedInstance.deleteEventWithId(eventId: self.eventId!)
+            NotificationCenter.default.post(Notification.init(name: Notification.Name(rawValue: "mydo.deleteHabit"), object: nil, userInfo: nil))
+            _ = self.navigationController?.popViewController(animated: true)
+        }
+        alertController.addAction(deleteAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (_) in
+            alertController.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(cancelAction)
+        present(alertController,animated: true)
+    }
+    
 }

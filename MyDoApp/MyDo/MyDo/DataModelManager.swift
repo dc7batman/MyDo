@@ -88,6 +88,14 @@ class DataModelManager: NSObject {
         return maxId
     }
     
+    func deleteEventWithId(eventId: Int) {
+        let moc = coreDataStack.mainMoc!
+        if let event : Event = fetchEvent(eventId: eventId, moc: moc) {
+            moc .delete(event)
+            coreDataStack.doSaveMoc(moc: moc)
+        }
+    }
+    
     func createEventWithName(name: String) -> Event {
         
         let moc = coreDataStack.backgroundMoc!
