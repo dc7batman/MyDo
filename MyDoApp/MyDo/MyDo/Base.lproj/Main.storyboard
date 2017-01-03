@@ -66,7 +66,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="MyDo" id="mPj-X4-hpu">
-                        <barButtonItem key="leftBarButtonItem" systemItem="reply" id="2fW-aN-wbt">
+                        <barButtonItem key="leftBarButtonItem" title="Feedback" id="2fW-aN-wbt">
                             <connections>
                                 <action selector="sendFeedback:" destination="BYZ-38-t0r" id="mut-ij-xfX"/>
                             </connections>
