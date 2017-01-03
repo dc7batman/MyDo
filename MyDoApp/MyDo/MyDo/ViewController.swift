@@ -89,6 +89,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return mailComposerVC
     }
     
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller .dismiss(animated: true, completion: nil)
+    }
+    
     // TableView datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todayEvents.count
