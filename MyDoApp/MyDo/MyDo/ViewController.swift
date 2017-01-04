@@ -20,6 +20,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let blueColor = UIColor.init(red: 28.0/255, green: 211.0/255, blue: 1.0, alpha: 1.0)
     
     var todayEvents : [Event] = []
+    let navBarTitleView = NavBarTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 45))
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         todayEvents = DataModelManager.sharedInstance.fetchTodayEvents()
         
         NotificationCenter.default.addObserver(self, selector: #selector(didDeleteHabit), name: Notification.Name(rawValue: "mydo.deleteHabit"), object: nil)
+        
+        navBarTitleView.translatesAutoresizingMaskIntoConstraints = true
+        self.navigationController?.navigationBar.topItem?.titleView = navBarTitleView
+        navBarTitleView.titleLabel?.text = "MyDo"
+        
     }
 
     override func didReceiveMemoryWarning() {

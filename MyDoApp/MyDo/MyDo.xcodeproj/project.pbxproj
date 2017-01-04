@@ -41,6 +41,7 @@
 		018616881E0EFC0A00D9950A /* MyDoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018616871E0EFC0A00D9950A /* MyDoUITests.swift */; };
 		018616981E0EFC6000D9950A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018616961E0EFC6000D9950A /* Fabric.framework */; };
 		018616991E0EFC6000D9950A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018616971E0EFC6000D9950A /* Crashlytics.framework */; };
+		01C74AD11E1D61C8006D6EA5 /* NavBarTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C74AD01E1D61C8006D6EA5 /* NavBarTitleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,7 @@
 		018616891E0EFC0A00D9950A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		018616961E0EFC6000D9950A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		018616971E0EFC6000D9950A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		01C74AD01E1D61C8006D6EA5 /* NavBarTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarTitleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +237,7 @@
 				013292821E14F23F00F758D7 /* SwipeCell */,
 				0132926E1E14270900F758D7 /* Model */,
 				018616671E0EFC0A00D9950A /* AppDelegate.swift */,
+				01C74AD01E1D61C8006D6EA5 /* NavBarTitleView.swift */,
 				018616691E0EFC0A00D9950A /* ViewController.swift */,
 				0132925B1E12D8DC00F758D7 /* ItemsListTableViewCell.swift */,
 				013292801E14E5A700F758D7 /* EventDetailsViewController.swift */,
@@ -447,6 +450,7 @@
 				013292BE1E151CE200F758D7 /* CalendarHandler.swift in Sources */,
 				013292B11E1512AC00F758D7 /* FSCalendarCell.m in Sources */,
 				0132926C1E140F9D00F758D7 /* CoredataStack.swift in Sources */,
+				01C74AD11E1D61C8006D6EA5 /* NavBarTitleView.swift in Sources */,
 				018616681E0EFC0A00D9950A /* AppDelegate.swift in Sources */,
 				013292681E140F4600F758D7 /* Model.xcdatamodeld in Sources */,
 				013292AC1E1512AC00F758D7 /* FSCalendar+Deprecated.m in Sources */,
