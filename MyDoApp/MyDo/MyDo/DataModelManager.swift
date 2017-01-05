@@ -134,7 +134,7 @@ class DataModelManager: NSObject {
         addActivity(eventId: eventId, isDone: isDone, date: Date())
     }
     
-    func addActivity(eventId: Int, isDone: Bool, date: Date) {
+    func addActivity(eventId: Int, isDone: Bool, date: Date) -> Activity? {
         let moc = coreDataStack.backgroundMoc!
         
         let event = fetchEvent(eventId: eventId, moc: moc)
@@ -164,9 +164,11 @@ class DataModelManager: NSObject {
         moc.perform {
             self.coreDataStack.doSaveMoc(moc: moc)
         }
+        
+        return activity
     }
     
-    func successActivities(eventId: Int) -> Array<Activity>? {
+    func allActivities(eventId: Int) -> Array<Activity>? {
         
         var successActivities: [Activity]?
         let moc = coreDataStack.mainMoc!
@@ -174,7 +176,7 @@ class DataModelManager: NSObject {
         if let event: Event = fetchEvent(eventId: eventId, moc: moc) {
             
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Activity")
-            let predicate = NSPredicate.init(format: "event == %@ AND activityType = %d", argumentArray: [event,1])
+            let predicate = NSPredicate.init(format: "event == %@", argumentArray: [event])
             fetchRequest.predicate = predicate
             
             do {
