@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol NavBarTitleViewDelegate {
+    func didTapOnNavBarTitleView(show: Bool)
+}
+
 class NavBarTitleView: UIView {
     
     var titleLabel: UILabel?
     private var arrowImageView: UIImageView?
     var isMenuShown = false
+    var delegate: NavBarTitleViewDelegate?
     
 
     required override init(frame: CGRect) {
@@ -54,6 +59,7 @@ class NavBarTitleView: UIView {
     
     func tapAction() {
         rotateArrowIndicator()
+        delegate?.didTapOnNavBarTitleView(show: isMenuShown)
     }
     
     func rotateArrowIndicator() {

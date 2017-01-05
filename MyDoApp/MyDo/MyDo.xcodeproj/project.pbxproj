@@ -42,6 +42,7 @@
 		018616981E0EFC6000D9950A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018616961E0EFC6000D9950A /* Fabric.framework */; };
 		018616991E0EFC6000D9950A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018616971E0EFC6000D9950A /* Crashlytics.framework */; };
 		01C74AD11E1D61C8006D6EA5 /* NavBarTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C74AD01E1D61C8006D6EA5 /* NavBarTitleView.swift */; };
+		01C74AD61E1EBCDA006D6EA5 /* HabbitsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C74AD51E1EBCDA006D6EA5 /* HabbitsSectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +123,7 @@
 		018616961E0EFC6000D9950A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		018616971E0EFC6000D9950A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		01C74AD01E1D61C8006D6EA5 /* NavBarTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarTitleView.swift; sourceTree = "<group>"; };
+		01C74AD51E1EBCDA006D6EA5 /* HabbitsSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabbitsSectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +240,7 @@
 				0132926E1E14270900F758D7 /* Model */,
 				018616671E0EFC0A00D9950A /* AppDelegate.swift */,
 				01C74AD01E1D61C8006D6EA5 /* NavBarTitleView.swift */,
+				01C74AD51E1EBCDA006D6EA5 /* HabbitsSectionView.swift */,
 				018616691E0EFC0A00D9950A /* ViewController.swift */,
 				0132925B1E12D8DC00F758D7 /* ItemsListTableViewCell.swift */,
 				013292801E14E5A700F758D7 /* EventDetailsViewController.swift */,
@@ -433,6 +436,7 @@
 				013292B51E1512AC00F758D7 /* FSCalendarDelegationFactory.m in Sources */,
 				013292811E14E5A700F758D7 /* EventDetailsViewController.swift in Sources */,
 				013292B41E1512AC00F758D7 /* FSCalendarConstants.m in Sources */,
+				01C74AD61E1EBCDA006D6EA5 /* HabbitsSectionView.swift in Sources */,
 				013292B71E1512AC00F758D7 /* FSCalendarExtensions.m in Sources */,
 				013292B91E1512AC00F758D7 /* FSCalendarScopeHandle.m in Sources */,
 				013292891E14F24C00F758D7 /* MGSwipeTableCell.m in Sources */,

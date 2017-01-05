@@ -10,7 +10,7 @@ import UIKit
 import MessageUI
 import Crashlytics
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, MGSwipeTableCellDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, MGSwipeTableCellDelegate,NavBarTitleViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -21,7 +21,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var todayEvents : [Event] = []
     let navBarTitleView = NavBarTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 45))
-    
+    var sectionsView: HabbitsSectionView?
+    var sectionsViewTopPadding: NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +35,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         NotificationCenter.default.addObserver(self, selector: #selector(didDeleteHabit), name: Notification.Name(rawValue: "mydo.deleteHabit"), object: nil)
         
         navBarTitleView.translatesAutoresizingMaskIntoConstraints = true
+        navBarTitleView.delegate = self
         self.navigationController?.navigationBar.topItem?.titleView = navBarTitleView
-        navBarTitleView.titleLabel?.text = "MyDo"
+        navBarTitleView.titleLabel?.text = "Today"
         
+        addHabitsSectionView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -244,6 +247,33 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                    customAttributes: [
                                     "Event Name": event.name!])
         }
+    }
+    
+    func addHabitsSectionView() {
+        sectionsView = HabbitsSectionView.init(frame: CGRect.zero)
+        sectionsView!.translatesAutoresizingMaskIntoConstraints = false
+        self.view .addSubview(sectionsView!)
+        
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[sectionsView]|", options: .init(rawValue: 0), metrics: nil, views: ["sectionsView": sectionsView!]))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[sectionsView]|", options: .init(rawValue: 0), metrics: nil, views: ["sectionsView": sectionsView!]))
+        
+        sectionsView?.alpha = 0.0
+    }
+    
+    func showHabitsSectionsView(show: Bool) {
+        UIView.animate(withDuration: 0.3) { 
+            if show {
+                self.sectionsView?.alpha = 1.0
+            } else {
+                self.sectionsView?.alpha = 0.0
+            }
+        }
+        self.navigationItem.leftBarButtonItem?.isEnabled = !show
+        self.navigationItem.rightBarButtonItem?.isEnabled = !show
+    }
+    
+    func didTapOnNavBarTitleView(show: Bool) {
+        showHabitsSectionsView(show: show)
     }
 }
 
