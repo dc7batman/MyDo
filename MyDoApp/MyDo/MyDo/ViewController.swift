@@ -156,7 +156,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // MGSwipeTableCellDelegate
     func swipeTableCell(_ cell: MGSwipeTableCell, canSwipe direction: MGSwipeDirection, from point: CGPoint) -> Bool {
-        return true
+        if selectionSection == .today {
+            return true
+        }
+        return false
     }
     
     func swipeTableCell(_ cell: MGSwipeTableCell, swipeButtonsFor direction: MGSwipeDirection, swipeSettings: MGSwipeSettings, expansionSettings: MGSwipeExpansionSettings) -> [UIView]? {
@@ -284,6 +287,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func didSelectHabbitCategory(type: HabitsSectionType) {
+        selectionSection = type
         if type == .today {
             events = DataModelManager.sharedInstance.fetchTodayEvents()
             navBarTitleView.titleLabel?.text = "Today"
