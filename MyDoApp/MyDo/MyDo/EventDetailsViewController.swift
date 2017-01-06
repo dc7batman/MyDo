@@ -26,12 +26,11 @@ class EventDetailsViewController: UIViewController, FSCalendarDataSource, FSCale
         
         allActivities = DataModelManager.sharedInstance.allActivities(eventId: eventId!)
         
-        calendarView.scopeGesture.isEnabled = true
+        calendarView.scopeGesture.isEnabled = false
         calendarView.allowsMultipleSelection = true
         calendarView.swipeToChooseGesture.isEnabled = true
         calendarView.appearance.caseOptions = [.headerUsesUpperCase,.weekdayUsesSingleUpperCase]
         calendarView.appearance.todayColor = UIColor.darkGray
-        
     }
 
     override func didReceiveMemoryWarning() {
