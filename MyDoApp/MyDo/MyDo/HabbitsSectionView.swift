@@ -8,7 +8,19 @@
 
 import UIKit
 
+enum HabitsSectionType {
+    case all
+    case today
+}
+
+protocol HabitsSectionViewDelegate {
+    func didSelectHabbitCategory(type: HabitsSectionType)
+}
+
 class HabbitsSectionView: UIView, UITableViewDataSource, UITableViewDelegate {
+    
+    var delegate: HabitsSectionViewDelegate?
+    
 
     required override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,5 +63,13 @@ class HabbitsSectionView: UIView, UITableViewDataSource, UITableViewDelegate {
             cell.textLabel?.text = "All"
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            delegate?.didSelectHabbitCategory(type: .today)
+        } else if indexPath.row == 1 {
+            delegate?.didSelectHabbitCategory(type: .all)
+        }
     }
 }

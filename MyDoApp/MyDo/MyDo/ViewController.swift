@@ -10,7 +10,7 @@ import UIKit
 import MessageUI
 import Crashlytics
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, MGSwipeTableCellDelegate,NavBarTitleViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, MGSwipeTableCellDelegate,NavBarTitleViewDelegate, HabitsSectionViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -19,10 +19,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let grayColor = UIColor.init(red: 142.0/255, green: 142.0/255, blue: 147.0/255, alpha: 1.0)
     let blueColor = UIColor.init(red: 28.0/255, green: 211.0/255, blue: 1.0, alpha: 1.0)
     
-    var todayEvents : [Event] = []
+    var events : [Event] = []
     let navBarTitleView = NavBarTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 45))
     var sectionsView: HabbitsSectionView?
     var sectionsViewTopPadding: NSLayoutConstraint?
+    var selectionSection: HabitsSectionType = .today
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +32,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let _ = CoredataStack.init()
         
-        todayEvents = DataModelManager.sharedInstance.fetchTodayEvents()
+        if selectionSection == .today {
+            events = DataModelManager.sharedInstance.fetchTodayEvents()
+        } else if selectionSection == .all {
+            events = DataModelManager.sharedInstance.fetchAllEvents()
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(didDeleteHabit), name: Notification.Name(rawValue: "mydo.deleteHabit"), object: nil)
         
@@ -48,7 +54,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func didDeleteHabit() {
-        todayEvents = DataModelManager.sharedInstance.fetchTodayEvents()
+        events = DataModelManager.sharedInstance.fetchTodayEvents()
         tableView.reloadData()
     }
     
@@ -80,7 +86,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func addNewItemWithName(name: String) -> Void {
         if name.characters.count > 0 {
             let event: Event = DataModelManager.sharedInstance.createEventWithName(name: name)
-            todayEvents.insert(event, at: 0)
+            events.insert(event, at: 0)
             tableView.beginUpdates()
             tableView.insertRows(at: [IndexPath.init(row: 0, section: 0)], with: .automatic)
             tableView.endUpdates()
@@ -120,7 +126,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // TableView datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todayEvents.count
+        return events.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -136,7 +142,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.contentView.backgroundColor = blueColor
         }
         
-        let event : Event = todayEvents[indexPath.row]
+        let event : Event = events[indexPath.row]
         cell.itemNameLabel?.text = event.name
         
         return cell
@@ -171,11 +177,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     let indexPath = self.tableView.indexPath(for: cell)
                     
                     // Add activity
-                    let event: Event = self.todayEvents[(indexPath?.row)!]
+                    let event: Event = self.events[(indexPath?.row)!]
                     DataModelManager.sharedInstance.addActivity(eventId: Int(event.eventId), isDone: true)
                     
                     // Remove item
-                    self.todayEvents.remove(at: (indexPath?.row)!)
+                    self.events.remove(at: (indexPath?.row)!)
                     
                     // Remove cell
                     self.tableView.beginUpdates()
@@ -205,11 +211,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     let indexPath = self.tableView.indexPath(for: cell)
                     
                     // Add activity
-                    let event: Event = self.todayEvents[(indexPath?.row)!]
+                    let event: Event = self.events[(indexPath?.row)!]
                     DataModelManager.sharedInstance.addActivity(eventId: Int(event.eventId), isDone: false)
                     
                     // Remove item
-                    self.todayEvents.remove(at: (indexPath?.row)!)
+                    self.events.remove(at: (indexPath?.row)!)
                     
                     // Remove cell
                     self.tableView.beginUpdates()
@@ -238,7 +244,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if segue.identifier == "showEventDetails" {
             let indexPath = tableView.indexPathForSelectedRow
-            let event = todayEvents[(indexPath?.row)!]
+            let event = events[(indexPath?.row)!]
             let eventDetailsVC = segue.destination as! EventDetailsViewController
             eventDetailsVC.title = event.name
             eventDetailsVC.eventId = Int(event.eventId)
@@ -252,6 +258,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func addHabitsSectionView() {
         sectionsView = HabbitsSectionView.init(frame: CGRect.zero)
         sectionsView!.translatesAutoresizingMaskIntoConstraints = false
+        sectionsView?.delegate = self
         self.view .addSubview(sectionsView!)
         
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[sectionsView]|", options: .init(rawValue: 0), metrics: nil, views: ["sectionsView": sectionsView!]))
@@ -274,6 +281,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func didTapOnNavBarTitleView(show: Bool) {
         showHabitsSectionsView(show: show)
+    }
+    
+    func didSelectHabbitCategory(type: HabitsSectionType) {
+        if type == .today {
+            events = DataModelManager.sharedInstance.fetchTodayEvents()
+            navBarTitleView.titleLabel?.text = "Today"
+        } else if type == .all {
+            events = DataModelManager.sharedInstance.fetchAllEvents()
+            navBarTitleView.titleLabel?.text = "All"
+        }
+        tableView.reloadData()
+        
+        showHabitsSectionsView(show: false)
+        navBarTitleView.rotateArrowIndicator()
     }
 }
 

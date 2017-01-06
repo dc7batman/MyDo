@@ -41,6 +41,17 @@ class DataModelManager: NSObject {
         return events
     }
     
+    func fetchAllEvents() -> [Event] {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Event")
+        var events : Array<Event> = [];
+        do {
+            events = try coreDataStack.mainMoc?.fetch(fetchRequest) as! Array<Event>
+        } catch {
+            assert(false, "Fetching evets failed")
+        }
+        return events
+    }
+    
     func fetchEvent(eventId: Int, moc: NSManagedObjectContext) -> Event? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Event")
         let predicate = NSPredicate.init(format: "eventId == %d", argumentArray: [eventId])
